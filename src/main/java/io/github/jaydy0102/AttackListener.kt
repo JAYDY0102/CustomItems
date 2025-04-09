@@ -37,57 +37,63 @@ class AttackListener : Listener {
                     if (entity.type == EntityType.ARMOR_STAND) {
                         return
                     } else if (entity is LivingEntity)
-                    player.giveExp(1, true)
+                        player.giveExp(1, true)
                 }
-                if (meta.customModelData == 3) {
-                    if (nextInt(4) == 0) {
-                        loc.world.spawnParticle(Particle.DRAGON_BREATH, loc, 50, 0.0, 1.0, 0.0, 0.0)
-                        if (yaw < 90) {
-                            val loc1 = Location(loc.world, x + 1.5 * sin(radyaw), y - 1, z - 1.5 * cos(radyaw), yaw, 0f)
-                            player.teleport(loc1)
-                        } else if (yaw < 180) {
-                            val loc1 = Location(loc.world, x + 1.5 * cos(radyaw), y - 1, z + 1.5 * sin(radyaw), yaw, 0f)
-                            player.teleport(loc1)
-                        } else if (yaw < 270) {
-                            val loc1 = Location(loc.world, x - 1.5 * cos(radyaw), y - 1, z + 1.5 * sin(radyaw), yaw, 0f)
-                            player.teleport(loc1)
-                        } else if (yaw <= 360) {
-                            val loc1 = Location(loc.world, x - 1.5 * cos(radyaw), y - 1, z - 1.5 * sin(radyaw), yaw, 0f)
-                            player.teleport(loc1)
+                if (item.itemMeta.hasCustomModelData()) {
+                    if (meta.customModelData == 3) {
+                        if (nextInt(4) == 0) {
+                            loc.world.spawnParticle(Particle.DRAGON_BREATH, loc, 50, 0.0, 1.0, 0.0, 0.0)
+                            if (yaw < 90) {
+                                val loc1 =
+                                    Location(loc.world, x + 1.5 * sin(radyaw), y - 1, z - 1.5 * cos(radyaw), yaw, 0f)
+                                player.teleport(loc1)
+                            } else if (yaw < 180) {
+                                val loc1 =
+                                    Location(loc.world, x + 1.5 * cos(radyaw), y - 1, z + 1.5 * sin(radyaw), yaw, 0f)
+                                player.teleport(loc1)
+                            } else if (yaw < 270) {
+                                val loc1 =
+                                    Location(loc.world, x - 1.5 * cos(radyaw), y - 1, z + 1.5 * sin(radyaw), yaw, 0f)
+                                player.teleport(loc1)
+                            } else if (yaw <= 360) {
+                                val loc1 =
+                                    Location(loc.world, x - 1.5 * cos(radyaw), y - 1, z - 1.5 * sin(radyaw), yaw, 0f)
+                                player.teleport(loc1)
+                            }
                         }
                     }
-                }
-                if (meta.customModelData == 4) {
-                    if (entity is Player) {
-                        loc.world.spawnParticle(Particle.SMOKE, loc, 50, 0.0, 1.0, 0.0, 0.0)
-                        entity.addPotionEffect(PotionEffect(PotionEffectType.WITHER, 50, 0, true, true))
-                    }
-                }
-                if (meta.customModelData == 5) {
-                    if (nextInt(1) == 0) {
+                    if (meta.customModelData == 4) {
                         if (entity is Player) {
-                            entity.addPotionEffect(PotionEffect(PotionEffectType.MINING_FATIGUE, 90, 4, true, true))
+                            loc.world.spawnParticle(Particle.SMOKE, loc, 50, 0.0, 1.0, 0.0, 0.0)
+                            entity.addPotionEffect(PotionEffect(PotionEffectType.WITHER, 50, 0, true, true))
                         }
                     }
-                }
-                if (meta.customModelData == 6) {
-                    if (nextInt(4) == 0) {
-                        if (entity is Player) {
-                            entity.addPotionEffect(PotionEffect(PotionEffectType.LEVITATION, 30, 0, true, true))
+                    if (meta.customModelData == 5) {
+                        if (nextInt(1) == 0) {
+                            if (entity is Player) {
+                                entity.addPotionEffect(PotionEffect(PotionEffectType.MINING_FATIGUE, 90, 4, true, true))
+                            }
                         }
                     }
-                }
-                if (meta.customModelData == 7) {
-                    if (nextInt(4) == 0) {
-                        if (entity is Player) {
-                            entity.addPotionEffect(PotionEffect(PotionEffectType.POISON, 40, 0, true, true))
+                    if (meta.customModelData == 6) {
+                        if (nextInt(4) == 0) {
+                            if (entity is Player) {
+                                entity.addPotionEffect(PotionEffect(PotionEffectType.LEVITATION, 30, 0, true, true))
+                            }
                         }
                     }
-                }
-                if (meta.customModelData == 8) {
-                    if (nextInt(4) == 0) {
-                        if (entity is Player) {
-                            entity.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 40, 0, true, true))
+                    if (meta.customModelData == 7) {
+                        if (nextInt(4) == 0) {
+                            if (entity is Player) {
+                                entity.addPotionEffect(PotionEffect(PotionEffectType.POISON, 40, 0, true, true))
+                            }
+                        }
+                    }
+                    if (meta.customModelData == 8) {
+                        if (nextInt(4) == 0) {
+                            if (entity is Player) {
+                                entity.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 40, 0, true, true))
+                            }
                         }
                     }
                 }

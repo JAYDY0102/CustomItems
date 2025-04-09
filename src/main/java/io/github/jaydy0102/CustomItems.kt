@@ -16,6 +16,7 @@ class CustomItems : JavaPlugin() {
         logger.info("CustomItems starting...")
         saveDefaultConfig()
         Bukkit.getPluginManager().registerEvents(AttackListener(),this)
+        Bukkit.getPluginManager().registerEvents(DeathListener(),this)
         server.scheduler.runTaskTimer(this, EquipmentEffects, 0L,1L)
         registerRecipe()
     }
@@ -112,5 +113,22 @@ class CustomItems : JavaPlugin() {
             setIngredient('P', Material.HEART_OF_THE_SEA)
             setIngredient('D', Material.NETHERITE_INGOT) }
         Bukkit.addRecipe(recipe15)
+        //Wardens Ice Boots
+        val key16 = NamespacedKey(this,"Wardens_Boots")
+        val recipe16 = ShapedRecipe(key16,Recipe.wardensBootsItemStack).apply {
+            shape("N N","N N","H H")
+            setIngredient('N',Material.NETHERITE_INGOT)
+            setIngredient('H',Recipe.wardenHeartItemStack)}
+        Bukkit.addRecipe(recipe16)
+        //Wardens Chestplate
+        val key17 = NamespacedKey(this,"Wardens_Chestplate")
+        val recipe17 = ShapedRecipe(key17,Recipe.wardensArmorItemStack).apply {
+            shape("D D","SHS","ECE")
+            setIngredient('D',Material.SCULK_SHRIEKER)
+            setIngredient('S',Material.SCULK_SENSOR)
+            setIngredient('H',Recipe.wardenHeartItemStack)
+            setIngredient('C',Material.SCULK_CATALYST)
+            setIngredient('E',Material.ECHO_SHARD) }
+        Bukkit.addRecipe(recipe17)
     }
 }
