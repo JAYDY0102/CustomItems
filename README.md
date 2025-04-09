@@ -1,2 +1,2 @@
-# DimensionBlock
-Plugin for disabling dimensions
+# CustomItems
+Plugin for adding custom recipes & items
