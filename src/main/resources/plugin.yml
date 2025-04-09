@@ -1,7 +1,7 @@
-name: DimensionBlock
-version: 1.1.0
-main: io.github.jaydy0102.DimensionBlock
-description: Blocks dimensions' access
+name: CustomItems
+version: 1.0.0
+main: io.github.jaydy0102.CustomItems
+description: Adds Custom Items & Recipes
 author: JAYDY0102
 website: https://papermc.io
 api-version: '1.21'
