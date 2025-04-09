@@ -3,8 +3,6 @@ package io.github.jaydy0102
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.inventory.BlastingRecipe
-import org.bukkit.inventory.RecipeChoice
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -17,50 +15,19 @@ class CustomItems : JavaPlugin() {
         instance = this
         logger.info("CustomItems starting...")
         saveDefaultConfig()
+        Bukkit.getPluginManager().registerEvents(AttackListener(),this)
+        server.scheduler.runTaskTimer(this, EquipmentEffects, 0L,1L)
         registerRecipe()
     }
     private fun registerRecipe() {
-        //Impure -> Purified Heart Shard
-        val key = NamespacedKey(this,"Purified_Heart_Shard")
-        val recipe = BlastingRecipe(key, Recipe.heartShardItemStack, RecipeChoice.ExactChoice(Recipe.impureheartShardItemStack),10.0f,2000)
-        Bukkit.addRecipe(recipe)
-        //Heart Crystal
-        val key1 = NamespacedKey(this,"Heart_Crystal")
-        val recipe1 = ShapedRecipe(key1,Recipe.heartCrystalItemStack).apply {
-            shape("HEH", "EDE", "HEH")
-            setIngredient('H',Recipe.heartShardItemStack)
-            setIngredient('E', Material.ECHO_SHARD)
-            setIngredient('D',Recipe.dragonFruitItemStack) }
-        Bukkit.addRecipe(recipe1)
-        //Bamboo Candy
-        val key2 = NamespacedKey(this,"Bamboo_Candy")
-        val recipe2 = ShapedRecipe(key2,Recipe.bambooCandyItemStack).apply {
-            shape("SSS","SBS","SSS")
-            setIngredient('S', Material.SUGAR)
-            setIngredient('B', Material.BAMBOO) }
-        Bukkit.addRecipe(recipe2)
-        //Enchanted Diamond Apple
-        val key3 = NamespacedKey(this,"Enchanted_Diamond_Apple")
-        val recipe3 = ShapedRecipe(key3,Recipe.enchantedDiamondAppleItemStack).apply {
-            shape("DDD","DAD","DDD")
-            setIngredient('D', Material.DIAMOND_BLOCK)
-            setIngredient('A', Material.APPLE) }
-        Bukkit.addRecipe(recipe3)
-        //Heart Shard Sword
-        val key4 = NamespacedKey(this,"Heart_Shard_Sword")
-        val recipe4 = ShapedRecipe(key4,Recipe.heartShardSwordItemStack).apply {
-            shape("H","H","N")
-            setIngredient('H',Recipe.heartShardItemStack)
-            setIngredient('N', Material.NETHERITE_INGOT) }
-        Bukkit.addRecipe(recipe4)
         //Enderman's Sword
-        val key5 = NamespacedKey(this,"Endermans_Sword")
-        val recipe5 = ShapedRecipe(key5,Recipe.endermanSwordItemStack).apply {
+        val key = NamespacedKey(this,"Endermans_Sword")
+        val recipe = ShapedRecipe(key,Recipe.endermanSwordItemStack).apply {
             shape("  P","CP ","EC ")
             setIngredient('P', Material.ENDER_PEARL)
             setIngredient('C', Material.POPPED_CHORUS_FRUIT)
             setIngredient('E', Material.END_ROD) }
-        Bukkit.addRecipe(recipe5)
+        Bukkit.addRecipe(recipe)
         //Wither's LongSword
         val key6 = NamespacedKey(this,"Withers_Sword")
         val recipe6 = ShapedRecipe(key6,Recipe.witherLongSwordItemStack).apply {
@@ -145,37 +112,5 @@ class CustomItems : JavaPlugin() {
             setIngredient('P', Material.HEART_OF_THE_SEA)
             setIngredient('D', Material.NETHERITE_INGOT) }
         Bukkit.addRecipe(recipe15)
-        //Wardens Ice Boots
-        val key16 = NamespacedKey(this,"Wardens_Boots")
-        val recipe16 = ShapedRecipe(key16,Recipe.wardensBootsItemStack).apply {
-            shape("N N","N N","H H")
-            setIngredient('N', Material.NETHERITE_INGOT)
-            setIngredient('H',Recipe.wardenHeartItemStack)}
-        Bukkit.addRecipe(recipe16)
-        //Wardens Chestplate
-        val key17 = NamespacedKey(this,"Wardens_Chestplate")
-        val recipe17 = ShapedRecipe(key17,Recipe.wardensArmorItemStack).apply {
-            shape("D D","SHS","ECE")
-            setIngredient('D', Material.SCULK_SHRIEKER)
-            setIngredient('S', Material.SCULK_SENSOR)
-            setIngredient('H',Recipe.wardenHeartItemStack)
-            setIngredient('C', Material.SCULK_CATALYST)
-            setIngredient('E', Material.ECHO_SHARD) }
-        Bukkit.addRecipe(recipe17)
-        //Warp Crystal - Updated Item
-        val key18 = NamespacedKey(this,"Warp_Crystal")
-        val recipe18 = ShapedRecipe(key18,Recipe.warpCrystalItemStack).apply {
-            shape(" G ","GEG"," G ")
-            setIngredient('E', Material.ENDER_PEARL)
-            setIngredient('G', Material.GHAST_TEAR)}
-        Bukkit.addRecipe(recipe18)
-        //Homing Crystal - Updated Item
-        val key19 = NamespacedKey(this,"Homing_Crystal")
-        val recipe19 = ShapedRecipe(key19,Recipe.homingCrystalItemStack).apply {
-            shape("FGF","GEG","FGF")
-            setIngredient('G', Material.ENDER_PEARL)
-            setIngredient('F', Material.DIAMOND)
-            setIngredient('E', Material.GHAST_TEAR)}
-        Bukkit.addRecipe(recipe19)
     }
 }

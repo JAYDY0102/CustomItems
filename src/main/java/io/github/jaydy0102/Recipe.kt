@@ -7,74 +7,14 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
-import org.bukkit.inventory.ItemRarity
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
 import org.bukkit.inventory.meta.LeatherArmorMeta
 
 abstract class  Recipe {
     companion object {
-        val impureheartShardItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Impure Heart Shard", TextColor.color(255,85,85))) }
-            itemMeta = itemMeta.apply { setCustomModelData(1) }
-        }
-        val heartShardItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Purified Heart Shard", TextColor.color(255,85,85))) }
-            itemMeta = itemMeta.apply { setCustomModelData(2) }
-        }
-        val heartCrystalItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Heart Crystal", TextColor.color(255,85,85))) }
-            itemMeta = itemMeta.apply { setCustomModelData(3) }
-            itemMeta = itemMeta.apply { setFood(food.apply { setCanAlwaysEat(true); nutrition = 10; saturation = 10.0f; })} // eatSeconds = 0.1f
-        }
-        val dragonFruitItemStack = ItemStack(Material.CHORUS_FRUIT).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Dragon Fruit", TextColor.color(170,0,170))) }
-            itemMeta = itemMeta.apply { setCustomModelData(1) }
-        }
-        val bambooCandyItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Bamboo Candy", TextColor.color(255,255,255))) }
-            itemMeta = itemMeta.apply { setCustomModelData(4) }
-            itemMeta = itemMeta.apply { setFood(food.apply { setCanAlwaysEat(false); nutrition = 3; saturation = 1.0f;})}// eatSeconds = 0.5f
-            itemMeta = itemMeta.apply { setMaxStackSize(99) }
-        }
-        val enchantedDiamondAppleItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Enchanted Diamond Apple")) }
-            itemMeta = itemMeta.apply { setCustomModelData(5) }
-            itemMeta = itemMeta.apply { setFood(food.apply { setCanAlwaysEat(true) ; nutrition = 15; saturation = 10.0f; })}
-            itemMeta = itemMeta.apply { setMaxStackSize(16) }
-            itemMeta = itemMeta.apply { setEnchantmentGlintOverride(true) }
-            itemMeta = itemMeta.apply { setRarity(ItemRarity.EPIC) }
-        }
-        val wardenHeartItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Warden's Heart", TextColor.color(255,85,255))) }
-            itemMeta = itemMeta.apply { setCustomModelData(6) }
-        }
-        val warpCrystalItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Warp Crystal", TextColor.color(255,85,255))) }
-            itemMeta = itemMeta.apply { setFood(food.apply { setCanAlwaysEat(true); nutrition = 0; saturation = 0.0f; })} //eatSeconds = 0.1f
-            itemMeta = itemMeta.apply { setCustomModelData(7) }
-        }
-        val homingCrystalItemStack = ItemStack(Material.CLOCK).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Homing Crystal", TextColor.color(170,0,0))) }
-            itemMeta = itemMeta.apply { setFood(food.apply { setCanAlwaysEat(true); nutrition = 0; saturation = 0.0f;})} // eatSeconds = 0.1f
-            itemMeta = itemMeta.apply { setCustomModelData(8) }
-        }
-        val heartShardSwordItemStack = ItemStack(Material.NETHERITE_SWORD).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Heart Shard Sword", TextColor.color(255,85,85))) }
-            itemMeta = itemMeta.apply { setCustomModelData(1) }
-            itemMeta = itemMeta.apply { removeAttributeModifier(Attribute.ATTACK_DAMAGE) }
-            itemMeta = itemMeta.apply { addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("Heart Shard Sword","Heart Shard Sword"), 8.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))}
-        }
-        val dragonSwordItemStack = ItemStack(Material.NETHERITE_SWORD).apply {
-            itemMeta = itemMeta.apply { itemName(Component.text("Dragon Sword", TextColor.color(0,0,0))) }
-            itemMeta = itemMeta.apply { setCustomModelData(2) }
-            itemMeta = itemMeta.apply { removeAttributeModifier(Attribute.ATTACK_DAMAGE) }
-            itemMeta = itemMeta.apply { addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("Dragon Sword","Dragon Sword"), 10.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))}
-            itemMeta = itemMeta.apply { isUnbreakable = true }
-        }
         val endermanSwordItemStack = ItemStack(Material.NETHERITE_SWORD).apply {
             itemMeta = itemMeta.apply { itemName(Component.text("Enderman's Sword", TextColor.color(170,0,170))) }
             itemMeta = itemMeta.apply { setCustomModelData(3) }
@@ -117,35 +57,6 @@ abstract class  Recipe {
             itemMeta = itemMeta.apply { removeAttributeModifier(Attribute.ATTACK_DAMAGE) }
             itemMeta = itemMeta.apply { addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("Ice Sword","Ice Sword"), 7.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))}
         }
-        val endCrownItemStack: ItemStack = ItemStack(Material.LEATHER_HELMET).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
-                itemMeta = itemMeta.apply { itemName(Component.text("The Crown of the End", TextColor.color(255,255,85))) }
-                setCustomModelData(1)
-                removeAttributeModifier(EquipmentSlot.HEAD)
-                addAttributeModifier(Attribute.MAX_HEALTH, AttributeModifier(NamespacedKey("End Crown","End Crown"), 10.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD))
-                addEnchant(Enchantment.THORNS, 5, true)
-                addEnchant(Enchantment.PROTECTION, 10, true)
-                setColor(Color.fromRGB(255, 0, 0))
-            }
-            itemMeta = (itemMeta as Damageable).apply {
-                setMaxDamage(784)
-            }
-        }
-        val wardensArmorItemStack: ItemStack = ItemStack(Material.LEATHER_CHESTPLATE).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
-                itemMeta = itemMeta.apply { itemName(Component.text("Warden's Chestplate", TextColor.color(0,0,170))) }
-                setCustomModelData(1)
-                isFireResistant = true
-                removeAttributeModifier(EquipmentSlot.CHEST)
-                addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("Warden Chestplate","Warden Chestplate"),9.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("Warden Chestplate","Warden Chestplate"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("Warden Chestplate","Warden Chestplate"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                setColor(Color.fromRGB(255, 0, 0))
-            }
-            itemMeta = (itemMeta as Damageable).apply {
-                setMaxDamage(656)
-            }
-        }
         val piglinsArmorItemStack: ItemStack = ItemStack(Material.LEATHER_CHESTPLATE).apply {
             itemMeta = (itemMeta as LeatherArmorMeta).apply {
                 itemName(Component.text("Pligin's Chestplate", TextColor.color(170,0,0)))
@@ -186,19 +97,6 @@ abstract class  Recipe {
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(784)
-            }
-        }
-        val wardensBootsItemStack: ItemStack = ItemStack(Material.LEATHER_BOOTS).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
-                itemName(Component.text("Flying Chicken's Pants", TextColor.color(80,170,170)))
-                setCustomModelData(1)
-                removeAttributeModifier(Attribute.ARMOR)
-                addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("Warden Sabatons","Warden Sabatons"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
-                addAttributeModifier(Attribute.MOVEMENT_SPEED, AttributeModifier(NamespacedKey("Warden Sabatons","Warden Sabatons"),1.5, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.FEET))
-                setColor(Color.fromRGB(255, 0, 0))
-            }
-            itemMeta = (itemMeta as Damageable).apply {
-                setMaxDamage(656)
             }
         }
         val oceansBootsItemStack: ItemStack = ItemStack(Material.LEATHER_BOOTS).apply {
