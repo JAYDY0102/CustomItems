@@ -1,7 +1,5 @@
 package io.github.jaydy0102
 
-import io.papermc.paper.datacomponent.item.Equippable
-import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Material
@@ -13,7 +11,6 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ArmorMeta
 import org.bukkit.inventory.meta.Damageable
-import org.bukkit.inventory.meta.ItemMeta
 
 abstract class  Recipe {
     companion object {
@@ -65,7 +62,7 @@ abstract class  Recipe {
         }
         val wardensArmorItemStack: ItemStack = ItemStack(Material.NETHERITE_CHESTPLATE).apply {
             itemMeta = (itemMeta as ArmorMeta).apply {
-                itemMeta = itemMeta.apply { itemName(Component.text("Warden's Chestplate", TextColor.color(0,0,170))) }
+                itemName(Component.text("Warden's Chestplate", TextColor.color(0,0,170)))
                 setCustomModelData(1)
                 isFireResistant = true
                 removeAttributeModifier(EquipmentSlot.CHEST)
