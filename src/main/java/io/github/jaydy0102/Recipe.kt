@@ -1,11 +1,9 @@
 package io.github.jaydy0102
 
-import io.papermc.paper.datacomponent.DataComponentBuilder
 import io.papermc.paper.datacomponent.item.Equippable
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
-import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
@@ -15,7 +13,7 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ArmorMeta
 import org.bukkit.inventory.meta.Damageable
-import org.bukkit.inventory.meta.components.EquippableComponent
+import org.bukkit.inventory.meta.ItemMeta
 
 abstract class  Recipe {
     companion object {
@@ -74,8 +72,10 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("warden_chestplate","warden_chestplate"),9.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("warden_chestplate","warden_chestplate"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("warden_chestplate","warden_chestplate"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                Equippable.equippable(EquipmentSlot.CHEST).assetId(NamespacedKey.fromString("minecraft:1"))
-            }
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.CHEST
+                    model = NamespacedKey.fromString("minecraft:1")
+                })            }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
@@ -89,8 +89,10 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("piglin_chestplate","piglin_chestplate"),7.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("piglin_chestplate","piglin_chestplate"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("piglin_chestplate","piglin_chestplate"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                Equippable.equippable(EquipmentSlot.CHEST).assetId(NamespacedKey.fromString("minecraft:2"))
-            }
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.CHEST
+                    model = NamespacedKey.fromString("minecraft:2")
+                })            }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
@@ -102,7 +104,10 @@ abstract class  Recipe {
                 removeAttributeModifier(EquipmentSlot.LEGS)
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("flying_chicken_pants","flying_chicken_pants"),5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 addAttributeModifier(Attribute.GRAVITY,AttributeModifier(NamespacedKey("flying_chicken_pants","flying_chicken_pants"),-0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
-                Equippable.equippable(EquipmentSlot.LEGS).assetId(NamespacedKey.fromString("minecraft:1"))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.LEGS
+                    model = NamespacedKey.fromString("minecraft:1")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(272)
@@ -116,7 +121,10 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("hardened_steel_greaves","hardened_steel_greaves"),8.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("hardened_steel_greaves","hardened_steel_greaves"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("hardened_steel_greaves","hardened_steel_greaves"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
-                Equippable.equippable(EquipmentSlot.LEGS).assetId(NamespacedKey.fromString("minecraft:2"))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.LEGS
+                    model = NamespacedKey.fromString("minecraft:2")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(784)
@@ -129,11 +137,14 @@ abstract class  Recipe {
                 removeAttributeModifier(Attribute.ARMOR)
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("warden_sabatons","warden_sabatons"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 addAttributeModifier(Attribute.MOVEMENT_SPEED, AttributeModifier(NamespacedKey("warden_sabatons","warden_sabatons"),1.5, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.FEET))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.FEET
+                    model = NamespacedKey.fromString("minecraft:1")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
-            Equippable.equippable(EquipmentSlot.FEET).assetId(NamespacedKey.minecraft("diamond"))
         }
         val oceansBootsItemStack: ItemStack = ItemStack(Material.NETHERITE_BOOTS).apply {
             itemMeta = (itemMeta as ArmorMeta).apply {
@@ -143,16 +154,14 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("ocean_pact","ocean_pact"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, AttributeModifier(NamespacedKey("ocean_pact","ocean_pact"),512.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 lore(listOf(Component.text("Protects User From Heights", TextColor.color(255,255,255))))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.FEET
+                    model = NamespacedKey.fromString("minecraft:2")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
-            Equippable.equippable(EquipmentSlot.FEET).apply {
-                assetId(Key.key("minecraft:diamond"))
-            }
-        }
-        val test: ItemStack = ItemStack(Material.STICK).apply {
-            Equippable.equippable(EquipmentSlot.FEET).build()
         }
     }
 }

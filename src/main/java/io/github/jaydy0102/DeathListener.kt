@@ -19,9 +19,4 @@ class DeathListener : Listener {
             }
         }
     }
-    @EventHandler
-    fun onPlayerAsk(event: PlayerArmSwingEvent) {
-        val player = event.player
-        player.give(Recipe.test)
-    }
 }
