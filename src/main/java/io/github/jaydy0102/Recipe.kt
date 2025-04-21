@@ -1,8 +1,9 @@
 package io.github.jaydy0102
 
+import io.papermc.paper.datacomponent.item.Equippable
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
-import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
@@ -10,8 +11,9 @@ import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ArmorMeta
 import org.bukkit.inventory.meta.Damageable
-import org.bukkit.inventory.meta.LeatherArmorMeta
+import org.bukkit.inventory.meta.ItemMeta
 
 abstract class  Recipe {
     companion object {
@@ -61,8 +63,8 @@ abstract class  Recipe {
             itemMeta = itemMeta.apply { removeAttributeModifier(Attribute.ATTACK_DAMAGE) }
             itemMeta = itemMeta.apply { addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("ice_sword","ice_sword"), 7.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))}
         }
-        val wardensArmorItemStack: ItemStack = ItemStack(Material.LEATHER_CHESTPLATE).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
+        val wardensArmorItemStack: ItemStack = ItemStack(Material.NETHERITE_CHESTPLATE).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
                 itemMeta = itemMeta.apply { itemName(Component.text("Warden's Chestplate", TextColor.color(0,0,170))) }
                 setCustomModelData(1)
                 isFireResistant = true
@@ -70,14 +72,16 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("warden_chestplate","warden_chestplate"),9.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("warden_chestplate","warden_chestplate"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("warden_chestplate","warden_chestplate"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                setColor(Color.fromRGB(255, 0, 0))
-            }
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.CHEST
+                    model = NamespacedKey.fromString("minecraft:1")
+                })            }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
         }
-        val piglinsArmorItemStack: ItemStack = ItemStack(Material.LEATHER_CHESTPLATE).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
+        val piglinsArmorItemStack: ItemStack = ItemStack(Material.NETHERITE_CHESTPLATE).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
                 itemName(Component.text("Pligin's Chestplate", TextColor.color(170,0,0)))
                 setCustomModelData(2)
                 isFireResistant = true
@@ -85,61 +89,75 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("piglin_chestplate","piglin_chestplate"),7.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("piglin_chestplate","piglin_chestplate"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("piglin_chestplate","piglin_chestplate"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
-                setColor(Color.fromRGB(0, 0, 255))
-            }
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.CHEST
+                    model = NamespacedKey.fromString("minecraft:2")
+                })            }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
         }
-        val flyingChickenPantsItemStack: ItemStack = ItemStack(Material.LEATHER_LEGGINGS).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
+        val flyingChickenPantsItemStack: ItemStack = ItemStack(Material.NETHERITE_LEGGINGS).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
                 itemName(Component.text("Flying Chicken's Pants", TextColor.color(255,255,255)))
                 setCustomModelData(1)
                 removeAttributeModifier(EquipmentSlot.LEGS)
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("flying_chicken_pants","flying_chicken_pants"),5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 addAttributeModifier(Attribute.GRAVITY,AttributeModifier(NamespacedKey("flying_chicken_pants","flying_chicken_pants"),-0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
-                setColor(Color.fromRGB(255, 0, 0))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.LEGS
+                    model = NamespacedKey.fromString("minecraft:1")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(272)
             }
         }
-        val anvilPantsItemStack: ItemStack = ItemStack(Material.LEATHER_LEGGINGS).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
-                itemName(Component.text("Hardened_Steel_Greaves", TextColor.color(170,170,170)))
+        val anvilPantsItemStack: ItemStack = ItemStack(Material.NETHERITE_LEGGINGS).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
+                itemName(Component.text("Hardened Steel Greaves", TextColor.color(170,170,170)))
                 setCustomModelData(2)
                 removeAttributeModifier(EquipmentSlot.LEGS)
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("hardened_steel_greaves","hardened_steel_greaves"),8.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 addAttributeModifier(Attribute.ARMOR_TOUGHNESS, AttributeModifier(NamespacedKey("hardened_steel_greaves","hardened_steel_greaves"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier(NamespacedKey("hardened_steel_greaves","hardened_steel_greaves"),0.2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
-                setColor(Color.fromRGB(0, 0, 255))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.LEGS
+                    model = NamespacedKey.fromString("minecraft:2")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(784)
             }
         }
-        val wardensBootsItemStack: ItemStack = ItemStack(Material.LEATHER_BOOTS).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
+        val wardensBootsItemStack: ItemStack = ItemStack(Material.NETHERITE_BOOTS).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
                 itemName(Component.text("Warden's Sabatons", TextColor.color(80,170,170)))
                 setCustomModelData(1)
                 removeAttributeModifier(Attribute.ARMOR)
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("warden_sabatons","warden_sabatons"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 addAttributeModifier(Attribute.MOVEMENT_SPEED, AttributeModifier(NamespacedKey("warden_sabatons","warden_sabatons"),1.5, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.FEET))
-                setColor(Color.fromRGB(255, 0, 0))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.FEET
+                    model = NamespacedKey.fromString("minecraft:1")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
             }
         }
-        val oceansBootsItemStack: ItemStack = ItemStack(Material.LEATHER_BOOTS).apply {
-            itemMeta = (itemMeta as LeatherArmorMeta).apply {
+        val oceansBootsItemStack: ItemStack = ItemStack(Material.NETHERITE_BOOTS).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
                 itemName(Component.text("Ocean's Pact", TextColor.color(80,80,170)))
                 setCustomModelData(2)
                 removeAttributeModifier(EquipmentSlot.FEET)
                 addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("ocean_pact","ocean_pact"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, AttributeModifier(NamespacedKey("ocean_pact","ocean_pact"),512.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 lore(listOf(Component.text("Protects User From Heights", TextColor.color(255,255,255))))
-                setColor(Color.fromRGB(0, 0, 255))
+                setEquippable(equippable.apply {
+                    slot = EquipmentSlot.FEET
+                    model = NamespacedKey.fromString("minecraft:2")
+                })
             }
             itemMeta = (itemMeta as Damageable).apply {
                 setMaxDamage(656)
