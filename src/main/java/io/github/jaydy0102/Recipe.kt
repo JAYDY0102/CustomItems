@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ArmorMeta
 import org.bukkit.inventory.meta.Damageable
 
+@Suppress("DEPRECATION")
 abstract class  Recipe {
     companion object {
         val wardenHeartItemStack = ItemStack(Material.CLOCK).apply {

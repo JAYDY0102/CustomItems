@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package io.github.jaydy0102
 
 import org.bukkit.Bukkit

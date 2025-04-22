@@ -16,6 +16,7 @@ import org.joml.Math.sin
 import org.joml.Math.cos
 import org.joml.Math.toRadians
 
+@Suppress("DEPRECATION")
 class AttackListener : Listener {
     @EventHandler
     fun onAttackPlayer(event: PrePlayerAttackEntityEvent) {
