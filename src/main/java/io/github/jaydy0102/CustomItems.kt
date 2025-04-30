@@ -51,7 +51,16 @@ class CustomItems : JavaPlugin() {
             setIngredient('D', Material.DIAMOND_BLOCK)
             setIngredient('N', Material.NETHERITE_INGOT)
         }
-        Bukkit.addRecipe(recipea9)
+        Bukkit.addRecipe(recipea11)
+        //a12, Super
+        val keya12 = NamespacedKey(this,"Super_Wings")
+        val recipea12 = ShapedRecipe(keya12,Recipe.rightwingStack).apply {
+            shape(" L ","DDD"," R ")
+            setIngredient('D', Material.ELYTRA)
+            setIngredient('L', Recipe.rightwingStack)
+            setIngredient('R', Recipe.rightwingStack)
+        }
+        Bukkit.addRecipe(recipea12)
         //b3, Enderman's Sword
         val keyb3 = NamespacedKey(this,"Endermans_Sword")
         val recipeb3 = ShapedRecipe(keyb3,Recipe.endermanSwordItemStack).apply {

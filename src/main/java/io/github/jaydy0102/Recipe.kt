@@ -12,6 +12,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemRarity
@@ -128,6 +129,29 @@ abstract class  Recipe {
             itemMeta = itemMeta.apply {
                 itemName(Component.text("Hell's Pickaxe", TextColor.color(170,0,0)))
                 setCustomModelData(1)
+            }
+        }
+        //c2
+        val weightedAxe: ItemStack = ItemStack(Material.NETHERITE_AXE).apply {
+            itemMeta = itemMeta.apply {
+                itemName(Component.text("Weighted Axe"))
+            }
+        }
+        //d1
+        val endCrownItemStack: ItemStack = ItemStack(Material.NETHERITE_HELMET).apply {
+            itemMeta = (itemMeta as ArmorMeta).apply {
+                itemMeta = itemMeta.apply { itemName(Component.text("The Crown of the End", TextColor.color(255,255,85))) }
+                setCustomModelData(1)
+                isFireResistant = true
+                removeAttributeModifier(EquipmentSlot.HEAD)
+                addAttributeModifier(Attribute.MAX_HEALTH, AttributeModifier(NamespacedKey("end_crown","end_crown"), 10.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD))
+                addAttributeModifier(Attribute.ARMOR, AttributeModifier(NamespacedKey("end_crown","end_crown"),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
+                addEnchant(Enchantment.THORNS, 5, true)
+                addEnchant(Enchantment.PROTECTION, 10, true)
+                setEquippable(equippable.apply { slot = EquipmentSlot.HEAD; model = NamespacedKey.fromString("minecraft:1") })
+            }
+            itemMeta = (itemMeta as Damageable).apply {
+                setMaxDamage(784)
             }
         }
         //e1

@@ -1,5 +1,6 @@
 package io.github.jaydy0102
 
+import io.papermc.paper.event.player.PlayerArmSwingEvent
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent
 import org.bukkit.Location
 import org.bukkit.Material
@@ -99,6 +100,14 @@ class AttackListener : Listener {
                     }
                 }
             }
+        }
+    }
+    @EventHandler
+    fun onPlayerArmSwingEvent(event: PlayerArmSwingEvent){
+        val player = event.player
+        val item = player.activeItem
+        if (item.type == Material.PALE_OAK_BUTTON) {
+            player.give(Recipe.endCrownItemStack)
         }
     }
 }
