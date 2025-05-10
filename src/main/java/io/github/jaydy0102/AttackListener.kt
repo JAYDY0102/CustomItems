@@ -106,8 +106,9 @@ class AttackListener : Listener {
     fun onPlayerArmSwingEvent(event: PlayerArmSwingEvent){
         val player = event.player
         val item = player.itemInHand
-        if (item.type == Material.PALE_OAK_BUTTON) {
-            player.give(Recipe.endCrownItemStack)
+        if (item.type == Material.FURNACE_MINECART) {
+            Gui.initializeItems()
+            player.openInventory(Gui.testInventory)
         }
     }
 }

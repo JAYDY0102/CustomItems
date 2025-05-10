@@ -21,7 +21,6 @@ class CustomItems : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(DeathListener(),this)
         server.scheduler.runTaskTimer(this, EquipmentEffects, 0L,1L)
         registerRecipe()
-
     }
     private fun registerRecipe() {
         //ids: a(Custom Miscellaneous Items), b(Swords), c(Tools), d(Helmet), e(Chestplate), f(Leggings), g(Boots)
@@ -162,6 +161,12 @@ class CustomItems : JavaPlugin() {
             setIngredient('M', Material.MACE)
             setIngredient('N', Material.NETHERITE_BLOCK) }
         Bukkit.addRecipe(recipec2)
+        //d1, End Crown
+        val keyd1 = NamespacedKey(this, "End_Crown")
+        val reciped1 = ShapelessRecipe(keyd1, Recipe.endCrownItemStack).apply {
+            addIngredient(Material.DRAGON_EGG)
+        }
+        Bukkit.addRecipe(reciped1)
         //e1, Wardens Chestplate
         val keye1 = NamespacedKey(this,"Wardens_Chestplate")
         val recipee1 = ShapedRecipe(keye1,Recipe.wardensArmorItemStack).apply {

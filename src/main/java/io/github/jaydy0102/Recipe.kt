@@ -190,7 +190,6 @@ abstract class  Recipe {
         val endCrownItemStack: ItemStack = ItemStack(Material.NETHERITE_HELMET).apply {
             itemMeta = (itemMeta as ArmorMeta).apply {
                 removeAttributeModifier(EquipmentSlot.HEAD)
-                itemMeta = itemMeta.apply { itemName(Component.text("The Crown of the End", TextColor.color(255,255,85))) }
                 setCustomModelData(1)
                 isFireResistant = true
                 addAttributeModifier(Attribute.MAX_HEALTH, AttributeModifier(NamespacedKey("end_crown","end_crown"), 20.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD))
@@ -201,6 +200,7 @@ abstract class  Recipe {
                 addEnchant(Enchantment.PROJECTILE_PROTECTION, 10, true)
                 addEnchant(Enchantment.BLAST_PROTECTION, 10, true)
                 setEquippable(equippable.apply { slot = EquipmentSlot.HEAD; model = NamespacedKey.fromString("minecraft:1") })
+                itemName(Component.text("The Crown of the End", TextColor.color(255,255,85)))
             }
             itemMeta = (itemMeta as Damageable).apply {
                 isUnbreakable = true
