@@ -3,6 +3,7 @@ package io.github.jaydy0102
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.BlastingRecipe
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
 import org.bukkit.plugin.java.JavaPlugin
@@ -51,16 +52,50 @@ class CustomItems : JavaPlugin() {
             setIngredient('D', Material.DIAMOND_BLOCK)
             setIngredient('N', Material.NETHERITE_INGOT)
         }
-        Bukkit.addRecipe(recipea11)
-        //a12, Super
-        val keya12 = NamespacedKey(this,"Super_Wings")
-        val recipea12 = ShapedRecipe(keya12,Recipe.rightwingStack).apply {
-            shape(" L ","DDD"," R ")
-            setIngredient('D', Material.ELYTRA)
-            setIngredient('L', Recipe.rightwingStack)
-            setIngredient('R', Recipe.rightwingStack)
+        Bukkit.addRecipe(recipea9)
+        //a13, Left Wing
+        val keya13 = NamespacedKey(this,"Left_Wing")
+        val recipea13 = ShapedRecipe(keya13,Recipe.leftWingItemStack).apply {
+            shape("NED", "EE ", "E  ")
+            setIngredient('E', Material.ELYTRA)
+            setIngredient('N', Material.NETHERITE_BLOCK)
+            setIngredient('D', Material.MUSIC_DISC_PIGSTEP)
         }
-        Bukkit.addRecipe(recipea12)
+        Bukkit.addRecipe(recipea13)
+        //a14, Right Wing
+        val keya14 = NamespacedKey(this,"Right_Wing")
+        val recipea14 = ShapedRecipe(keya14,Recipe.rightWingItemStack).apply {
+            shape("WEA", " EE", "  E")
+            setIngredient('E', Material.ELYTRA)
+            setIngredient('W', Recipe.wardenHeartItemStack)
+            setIngredient('A', Recipe.enhancedGoldenAppleItemStack)
+        }
+        Bukkit.addRecipe(recipea14)
+        //a15, Custom Firework
+        val keya15 = NamespacedKey(this, "Eternal_Flame")
+        val recipea15 = ShapelessRecipe(keya15, Recipe.fireworkItemStack).apply {
+            addIngredient(1, Material.GUNPOWDER)
+            addIngredient(1, Recipe.fuseItemStack)
+            addIngredient(1, Material.NETHERITE_SCRAP)
+            addIngredient(1, Material.BLAZE_POWDER)
+            addIngredient(1, Recipe.netherCoreItemStack)
+        }
+        Bukkit.addRecipe(recipea15)
+        //a16, Fuse
+        val keya16 = NamespacedKey(this,"Fuse")
+        val recipea16 = BlastingRecipe(keya16, Recipe.fuseItemStack, Material.STRING, 1.0F,100)
+        Bukkit.addRecipe(recipea16)
+        //a17, Nether Core
+        val keya17 = NamespacedKey(this,"Nether_Core")
+        val recipea17 = ShapedRecipe(keya17,Recipe.netherCoreItemStack).apply {
+            shape("WQW", "NSN", "CQC")
+            setIngredient('W', Material.NETHER_WART_BLOCK)
+            setIngredient('Q', Material.QUARTZ_BLOCK)
+            setIngredient('N', Material.NETHERITE_BLOCK)
+            setIngredient('C', Material.CHISELED_NETHER_BRICKS)
+            setIngredient('S', Material.NETHER_STAR)
+        }
+        Bukkit.addRecipe(recipea17)
         //b3, Enderman's Sword
         val keyb3 = NamespacedKey(this,"Endermans_Sword")
         val recipeb3 = ShapedRecipe(keyb3,Recipe.endermanSwordItemStack).apply {
@@ -118,6 +153,15 @@ class CustomItems : JavaPlugin() {
             setIngredient('N', Material.NETHERITE_INGOT)
             setIngredient('B', Material.BLAZE_ROD)}
         Bukkit.addRecipe(recipec1)
+        //c2, Weighted Axe
+        val keyc2 = NamespacedKey(this,"Weighted_Axe")
+        val recipec2 = ShapedRecipe(keyc2,Recipe.weightedAxeItemStack).apply {
+            shape("NMN","CBC"," B ")
+            setIngredient('C', Material.CRYING_OBSIDIAN)
+            setIngredient('B', Material.BREEZE_ROD)
+            setIngredient('M', Material.MACE)
+            setIngredient('N', Material.NETHERITE_BLOCK) }
+        Bukkit.addRecipe(recipec2)
         //e1, Wardens Chestplate
         val keye1 = NamespacedKey(this,"Wardens_Chestplate")
         val recipee1 = ShapedRecipe(keye1,Recipe.wardensArmorItemStack).apply {
@@ -137,6 +181,19 @@ class CustomItems : JavaPlugin() {
             setIngredient('P', Material.MUSIC_DISC_PIGSTEP)
             setIngredient('B', Material.NETHER_BRICK) }
         Bukkit.addRecipe(recipee2)
+        //e3, Upgraded Elytra
+        val keye3 = NamespacedKey(this,"Upgraded_Elytra")
+        val recipee3 = ShapedRecipe(keye3,Recipe.upgradedElytraItemStack).apply {
+            shape("THT","LNR","W P")
+            setIngredient('T', Material.TOTEM_OF_UNDYING)
+            setIngredient('H', Material.HEAVY_CORE)
+            setIngredient('N', Material.NETHER_STAR)
+            setIngredient('L', Recipe.leftWingItemStack)
+            setIngredient('R', Recipe.rightWingItemStack)
+            setIngredient('W', Recipe.wardensArmorItemStack)
+            setIngredient('P', Recipe.piglinsArmorItemStack)
+        }
+        Bukkit.addRecipe(recipee3)
         //f1, Flying Chicken Pants
         val keyf1 = NamespacedKey(this,"Flying_Chicken_Pants")
         val recipef1 = ShapedRecipe(keyf1,Recipe.flyingChickenPantsItemStack).apply {

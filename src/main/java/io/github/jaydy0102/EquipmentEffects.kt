@@ -5,6 +5,7 @@ package io.github.jaydy0102
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -29,6 +30,13 @@ object EquipmentEffects : Runnable {
             if (chestmeta != null) {
                 if (chestmeta.hasCustomModelData()) {
                     if (chestmeta.customModelData == 2) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20,0,true,true))
+                    }
+                    if (chestplate.type == (Material.ELYTRA)) {
+                        if (player.isGliding) {
+                            if (hand.isSimilar(Recipe.fireworkItemStack))
+                                player.fireworkBoost(ItemStack(Material.FIREWORK_ROCKET))
+                        }
                         player.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20,0,true,true))
                     }
                 }

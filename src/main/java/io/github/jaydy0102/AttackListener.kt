@@ -105,7 +105,7 @@ class AttackListener : Listener {
     @EventHandler
     fun onPlayerArmSwingEvent(event: PlayerArmSwingEvent){
         val player = event.player
-        val item = player.activeItem
+        val item = player.itemInHand
         if (item.type == Material.PALE_OAK_BUTTON) {
             player.give(Recipe.endCrownItemStack)
         }
