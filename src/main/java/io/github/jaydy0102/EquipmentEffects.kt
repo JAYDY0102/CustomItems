@@ -2,9 +2,9 @@
 
 package io.github.jaydy0102
 
-import org.bukkit.Bukkit
+import io.papermc.paper.datacomponent.item.Fireworks
+import org.bukkit.*
 import org.bukkit.entity.Player
-import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.potion.PotionEffect
@@ -18,6 +18,7 @@ object EquipmentEffects : Runnable {
     private fun equipmentEffects() {
         Bukkit.getOnlinePlayers().forEach {
             val player = it.player as Player
+            val loc = player.location
             val inventory: PlayerInventory = player.inventory
             val chestplate = inventory.chestplate
             val boots = inventory.boots
@@ -34,8 +35,14 @@ object EquipmentEffects : Runnable {
                     }
                     if (chestplate.type == (Material.ELYTRA)) {
                         if (player.isGliding) {
-                            if (hand.isSimilar(Recipe.fireworkItemStack))
-                                player.fireworkBoost(ItemStack(Material.FIREWORK_ROCKET))
+                            if (hand.isSimilar(Recipe.fireworkItemStack)) {
+                                if (player.velocity.length() < 1.5) {
+                                    val boost = player.location.direction.multiply(0.5)
+                                    player.velocity = player.velocity.add(boost)
+                                }
+                                player.spawnParticle(Particle.FLAME, loc, 20, 0.1, 0.1, 0.1, 0.1)
+                                player.playSound(player,Sound.ITEM_FIRECHARGE_USE,SoundCategory.PLAYERS,1.0F,1.0F)
+                            }
                         }
                         player.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20,0,true,true))
                     }

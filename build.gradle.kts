@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.jaydy0102"
-version = "1.7.0"
+version = "1.7.1"
 
 allprojects {
     apply(plugin = "java")
