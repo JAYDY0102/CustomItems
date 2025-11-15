@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.jaydy0102"
-version = "1.7.2"
+version = "1.7.3"
 
 allprojects {
     apply(plugin = "java")
@@ -14,7 +14,10 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven("https://repo.papermc.io/repository/maven-public/")
+        maven {
+            name = "papermc"
+            url = uri("https://repo.papermc.io/repository/maven-public/")
+        }
         maven("https://repo.dmulloy2.net/nexus/repository/public/")
         maven("https://repo.codemc.io/repository/maven-snapshots/")
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
@@ -22,8 +25,8 @@ allprojects {
         }
     }
     dependencies {
-        compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
-        implementation("com.comphenix.protocol:ProtocolLib:5.3.0")
+        compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+        compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
     }
 
     java {

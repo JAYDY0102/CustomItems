@@ -110,6 +110,13 @@ abstract class  Recipe {
                 setCustomModelData(17)
             }
         }
+        //a18
+        val airBridgeItemStack = ItemStack(Material.CLOCK).apply {
+            itemMeta = itemMeta.apply {
+                itemName(Component.text("Air Bridge", TextColor.color(59, 57, 59)))
+                setCustomModelData(18)
+            }
+        }
         //b3
         val endermanSwordItemStack = ItemStack(Material.NETHERITE_SWORD).apply {
             itemMeta = itemMeta.apply {

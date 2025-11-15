@@ -1,17 +1,20 @@
 package io.github.jaydy0102
 
-import io.papermc.paper.event.player.PlayerArmSwingEvent
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
+import org.bukkit.Sound
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import org.bukkit.util.BlockIterator
 import kotlin.random.Random.Default.nextInt
 import org.joml.Math.sin
 import org.joml.Math.cos
@@ -44,7 +47,7 @@ class AttackListener : Listener {
                 if (item.itemMeta.hasCustomModelData()) {
                     if (meta.customModelData == 3) {
                         if (nextInt(4) == 0) {
-                            loc.world.spawnParticle(Particle.DRAGON_BREATH, loc, 50, 0.0, 1.0, 0.0, 0.0)
+                            loc.world.spawnParticle(Particle.END_ROD,loc,50,0.5,0.5,0.5,0.1)
                             if (yaw < 90) {
                                 val loc1 =
                                     Location(loc.world, x + 1.5 * sin(radyaw), y - 1, z - 1.5 * cos(radyaw), yaw, 0f)
@@ -103,12 +106,32 @@ class AttackListener : Listener {
         }
     }
     @EventHandler
-    fun onPlayerArmSwingEvent(event: PlayerArmSwingEvent){
+    fun onPlayerArmSwingEvent(event: PlayerInteractEvent){
         val player = event.player
         val item = player.itemInHand
-        if (item.type == Material.FURNACE_MINECART) {
-            Gui.initializeItems()
-            player.openInventory(Gui.testInventory)
+        val loc = player.location
+        if (event.action == Action.RIGHT_CLICK_AIR) {
+            if (item.type == Material.SNORT_POTTERY_SHERD) {
+                Gui.initializeItems()
+                player.openInventory(Gui.testInventory)
+            }
+            if (item.isSimilar(Recipe.airBridgeItemStack)) {
+                event.isCancelled = true
+                loc.apply {
+                    y -= 1.0
+                    pitch = 0.0F
+                }
+                val iterator = BlockIterator(loc, 0.0, 8)
+                while (iterator.hasNext()) {
+                    val block = iterator.next()
+                    if (block.type.isAir) {
+                        block.type = Material.GLASS
+                        loc.world.playSound(block.location.add(0.5, 0.5, 0.5), Sound.BLOCK_GLASS_PLACE, 1.0F, 1.0F)
+                        item.amount -= 1
+                        break
+                    }
+                }
+            }
         }
     }
 }

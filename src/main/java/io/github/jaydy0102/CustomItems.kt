@@ -3,16 +3,21 @@ package io.github.jaydy0102
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.command.Command
+import org.bukkit.command.CommandSender
 import org.bukkit.inventory.BlastingRecipe
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.scheduler.BukkitTask
 
 class CustomItems : JavaPlugin() {
     companion object {
         lateinit var instance: CustomItems
             private set
     }
+    private val recipeKeys = mutableListOf<NamespacedKey>()
+    private var equipmentTask: BukkitTask? = null
     override fun onEnable() {
         instance = this
         logger.info("CustomItems starting...")
@@ -21,6 +26,36 @@ class CustomItems : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(DeathListener(),this)
         server.scheduler.runTaskTimer(this, EquipmentEffects, 0L,1L)
         registerRecipe()
+    }
+    override fun onDisable() {
+        equipmentTask?.cancel()
+        unregisterRecipes()
+        logger.info("CustomItems stopping...")
+    }
+    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
+        if (!command.name.equals("customitems", true)) return false
+
+        if (args.isNotEmpty() && args[0].equals("reload", true)) {
+            if (!sender.hasPermission("customitems.reload")) {
+                sender.sendMessage("§cNo permission")
+                return true
+            }
+
+            reloadConfig()
+            unregisterRecipes()
+            registerRecipe()
+            Gui.initializeItems()
+
+            equipmentTask?.cancel()
+            equipmentTask = server.scheduler.runTaskTimer(this, EquipmentEffects, 0L, 1L)
+
+            sender.sendMessage("§aCustomItems reloaded")
+            logger.info("CustomItems reloaded by ${sender.name}")
+            return true
+        }
+
+        sender.sendMessage("§eUsage: /customitems reload")
+        return true
     }
     private fun registerRecipe() {
         //ids: a(Custom Miscellaneous Items), b(Swords), c(Tools), d(Helmet), e(Chestplate), f(Leggings), g(Boots)
@@ -95,6 +130,12 @@ class CustomItems : JavaPlugin() {
             setIngredient('S', Material.NETHER_STAR)
         }
         Bukkit.addRecipe(recipea17)
+        //a18, Fuse
+        val keya18 = NamespacedKey(this,"Fuse_TNT")
+        val recipea18 = ShapelessRecipe(keya18, Recipe.airBridgeItemStack).apply {
+            addIngredient(Material.GLASS)
+        }
+        Bukkit.addRecipe(recipea18)
         //b3, Enderman's Sword
         val keyb3 = NamespacedKey(this,"Endermans_Sword")
         val recipeb3 = ShapedRecipe(keyb3,Recipe.endermanSwordItemStack).apply {
@@ -232,5 +273,9 @@ class CustomItems : JavaPlugin() {
             setIngredient('N',Material.NETHERITE_INGOT)
             setIngredient('H',Recipe.wardenHeartItemStack)}
         Bukkit.addRecipe(recipeg2)
+    }
+    private fun unregisterRecipes() {
+        recipeKeys.forEach { server.removeRecipe(it) }
+        recipeKeys.clear()
     }
 }
