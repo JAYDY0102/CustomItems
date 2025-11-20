@@ -18,44 +18,24 @@ class CustomItems : JavaPlugin() {
     }
     private val recipeKeys = mutableListOf<NamespacedKey>()
     private var equipmentTask: BukkitTask? = null
+    var craftlist:MutableList<String> = mutableListOf()
     override fun onEnable() {
         instance = this
         logger.info("CustomItems starting...")
         saveDefaultConfig()
+        craftlist.addAll(ConfigManager.craftPlayers)
         Bukkit.getPluginManager().registerEvents(AttackListener(),this)
         Bukkit.getPluginManager().registerEvents(DeathListener(),this)
+        Bukkit.getPluginManager().registerEvents(CraftListener(),this)
         server.scheduler.runTaskTimer(this, EquipmentEffects, 0L,1L)
         registerRecipe()
     }
     override fun onDisable() {
         equipmentTask?.cancel()
         unregisterRecipes()
+        ConfigManager.craftPlayers.addAll(craftlist)
+        saveConfig()
         logger.info("CustomItems stopping...")
-    }
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        if (!command.name.equals("customitems", true)) return false
-
-        if (args.isNotEmpty() && args[0].equals("reload", true)) {
-            if (!sender.hasPermission("customitems.reload")) {
-                sender.sendMessage("§cNo permission")
-                return true
-            }
-
-            reloadConfig()
-            unregisterRecipes()
-            registerRecipe()
-            Gui.initializeItems()
-
-            equipmentTask?.cancel()
-            equipmentTask = server.scheduler.runTaskTimer(this, EquipmentEffects, 0L, 1L)
-
-            sender.sendMessage("§aCustomItems reloaded")
-            logger.info("CustomItems reloaded by ${sender.name}")
-            return true
-        }
-
-        sender.sendMessage("§eUsage: /customitems reload")
-        return true
     }
     private fun registerRecipe() {
         //ids: a(Custom Miscellaneous Items), b(Swords), c(Tools), d(Helmet), e(Chestplate), f(Leggings), g(Boots)
