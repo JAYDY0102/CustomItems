@@ -124,6 +124,7 @@ abstract class  Recipe {
                 setCustomModelData(3)
                 removeAttributeModifier(Attribute.ATTACK_DAMAGE)
                 addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("enderman_sword","enderman_sword"), 8.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
+                addAttributeModifier(Attribute.ATTACK_SPEED, AttributeModifier(NamespacedKey("enderman_sword","enderman_sword"), -2.4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
             }
         }
         //b4
@@ -135,6 +136,7 @@ abstract class  Recipe {
                 addAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE, AttributeModifier(NamespacedKey("wither_sword","wither_sword"), 1.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
                 removeAttributeModifier(Attribute.ATTACK_DAMAGE)
                 addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("wither_sword","wither_sword"), 6.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
+                addAttributeModifier(Attribute.ATTACK_SPEED, AttributeModifier(NamespacedKey("wither_sword","wither_sword"), -2.4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
             }
         }
         //b5
@@ -144,6 +146,7 @@ abstract class  Recipe {
                 setCustomModelData(5)
                 removeAttributeModifier(Attribute.ATTACK_DAMAGE)
                 addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("elder_guardian_thorn","elder_guardian_thorn"), 11.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
+                addAttributeModifier(Attribute.ATTACK_SPEED, AttributeModifier(NamespacedKey("elder_guardian_thorn","elder_guardian_thorn"), -2.4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
             }
         }
         //b6
@@ -153,6 +156,7 @@ abstract class  Recipe {
                 setCustomModelData(6)
                 removeAttributeModifier(Attribute.ATTACK_DAMAGE)
                 addAttributeModifier(Attribute.ATTACK_DAMAGE, AttributeModifier(NamespacedKey("sculk_sword","sculk_sword"), 8.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
+                addAttributeModifier(Attribute.ATTACK_SPEED, AttributeModifier(NamespacedKey("sculk_sword","sculk_sword"), -2.4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
             }
         }
         //b7
@@ -205,7 +209,6 @@ abstract class  Recipe {
                 addEnchant(Enchantment.THORNS, 5, true)
                 addEnchant(Enchantment.PROTECTION, 10, true)
                 addEnchant(Enchantment.PROJECTILE_PROTECTION, 10, true)
-                addEnchant(Enchantment.BLAST_PROTECTION, 10, true)
                 setEquippable(equippable.apply { slot = EquipmentSlot.HEAD; model = NamespacedKey.fromString("minecraft:1") })
                 itemName(Component.text("The Crown of the End", TextColor.color(255,255,85)))
             }

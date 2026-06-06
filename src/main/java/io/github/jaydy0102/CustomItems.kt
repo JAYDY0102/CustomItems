@@ -3,8 +3,6 @@ package io.github.jaydy0102
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.command.Command
-import org.bukkit.command.CommandSender
 import org.bukkit.inventory.BlastingRecipe
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
@@ -23,7 +21,6 @@ class CustomItems : JavaPlugin() {
         instance = this
         logger.info("CustomItems starting...")
         saveDefaultConfig()
-        craftlist.addAll(ConfigManager.craftPlayers)
         Bukkit.getPluginManager().registerEvents(AttackListener(),this)
         Bukkit.getPluginManager().registerEvents(DeathListener(),this)
         Bukkit.getPluginManager().registerEvents(CraftListener(),this)
@@ -33,7 +30,6 @@ class CustomItems : JavaPlugin() {
     override fun onDisable() {
         equipmentTask?.cancel()
         unregisterRecipes()
-        ConfigManager.craftPlayers.addAll(craftlist)
         saveConfig()
         logger.info("CustomItems stopping...")
     }

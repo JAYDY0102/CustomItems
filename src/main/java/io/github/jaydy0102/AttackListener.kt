@@ -1,6 +1,8 @@
 package io.github.jaydy0102
 
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -30,7 +32,7 @@ class AttackListener : Listener {
         val x = loc.x
         val y = loc.y
         val z = loc.z
-        val yaw = entity.yaw
+        val yaw = entity.yaw % 360 + 180
         val radyaw = toRadians(entity.yaw)
         val item = event.player.inventory.itemInMainHand
         val meta = item.itemMeta
@@ -48,23 +50,8 @@ class AttackListener : Listener {
                     if (meta.customModelData == 3) {
                         if (nextInt(4) == 0) {
                             loc.world.spawnParticle(Particle.END_ROD,loc,50,0.5,0.5,0.5,0.1)
-                            if (yaw < 90) {
-                                val loc1 =
-                                    Location(loc.world, x + 1.5 * sin(radyaw), y - 1, z - 1.5 * cos(radyaw), yaw, 0f)
-                                player.teleport(loc1)
-                            } else if (yaw < 180) {
-                                val loc1 =
-                                    Location(loc.world, x + 1.5 * cos(radyaw), y - 1, z + 1.5 * sin(radyaw), yaw, 0f)
-                                player.teleport(loc1)
-                            } else if (yaw < 270) {
-                                val loc1 =
-                                    Location(loc.world, x - 1.5 * cos(radyaw), y - 1, z + 1.5 * sin(radyaw), yaw, 0f)
-                                player.teleport(loc1)
-                            } else if (yaw <= 360) {
-                                val loc1 =
-                                    Location(loc.world, x - 1.5 * cos(radyaw), y - 1, z - 1.5 * sin(radyaw), yaw, 0f)
-                                player.teleport(loc1)
-                            }
+                            val loc1 = Location(loc.world, x + 2 * sin(radyaw), y - 1, z - 2 * cos(radyaw), yaw-180, 0f)
+                            player.teleport(loc1)
                         }
                     }
                     if (meta.customModelData == 4) {
@@ -111,9 +98,12 @@ class AttackListener : Listener {
         val item = player.itemInHand
         val loc = player.location
         if (event.action == Action.RIGHT_CLICK_AIR) {
-            if (item.type == Material.SNORT_POTTERY_SHERD) {
+            if (item.type == Material.SPRUCE_FENCE_GATE) {
                 Gui.initializeItems()
                 player.openInventory(Gui.testInventory)
+                CustomItems.instance.config.set("craftedAxe", false)
+                CustomItems.instance.saveConfig()
+                CustomItems.instance.server.sendMessage(Component.text("Reset Config", NamedTextColor.YELLOW))
             }
             if (item.isSimilar(Recipe.airBridgeItemStack)) {
                 event.isCancelled = true

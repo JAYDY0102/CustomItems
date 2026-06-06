@@ -1,64 +1,38 @@
 plugins {
-    kotlin("jvm") version "1.9.21"
-    id("io.github.goooler.shadow") version "8.1.7"
+    kotlin("jvm") version "2.2.20"
+    id("java")
 }
 
 group = "org.jaydy0102"
-version = "1.7.3"
+version = "1.8.0-SNAPSHOT"
 
-allprojects {
-    apply(plugin = "java")
-    apply(plugin = "kotlin")
-    apply(plugin = "maven-publish")
-    apply(plugin = "io.github.goooler.shadow")
-
+buildscript {
     repositories {
         mavenCentral()
-        maven {
-            name = "papermc"
-            url = uri("https://repo.papermc.io/repository/maven-public/")
-        }
-        maven("https://repo.dmulloy2.net/nexus/repository/public/")
-        maven("https://repo.codemc.io/repository/maven-snapshots/")
-        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-        maven("https://repo.codemc.io/repository/maven-snapshots/"){
-        }
+        gradlePluginPortal()
+        maven("https://central.sonatype.com/repository/maven-snapshots/")
     }
     dependencies {
-        compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
-        compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
+        classpath("com.gradleup.shadow:shadow-gradle-plugin:9.4.2")
     }
+}
 
-    java {
-        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-    }
+repositories {
+    maven("https://repo.dmulloy2.net/nexus/repository/public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
+}
 
-    tasks {
-        shadowJar {
-            relocate("io.github.jaydy0102", "io.github.jaydy0102")
-        }
+dependencies{
+    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
+}
 
-        compileKotlin {
-            kotlinOptions {
-                jvmTarget = "21"
-            }
-        }
-        compileJava {
-            options.isDeprecation = true
-            options.encoding = "UTF-8"
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
 
-            dependsOn(clean)
-        }
-        processResources {
-            filesMatching(listOf("**plugin.yml", "**eco.yml")) {
-                expand(
-                    "version" to project.version,
-                    "pluginName" to rootProject.name
-                )
-            }
-        }
-        build {
-            dependsOn(shadowJar)
-        }
-    }
+apply(plugin = "com.gradleup.shadow")
+
+tasks.test {
+    useJUnitPlatform()
 }
